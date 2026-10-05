@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="95" fill="#556B2F" stroke="#D4AF37" stroke-width="4"/>
+  
+  <!-- Olive branch decoration -->
+  <path d="M 60 80 Q 80 60 100 80 Q 120 60 140 80" stroke="#D4AF37" stroke-width="3" fill="none"/>
+  <circle cx="60" cy="80" r="5" fill="#D4AF37"/>
+  <circle cx="100" cy="80" r="5" fill="#D4AF37"/>
+  <circle cx="140" cy="80" r="5" fill="#D4AF37"/>
+  
+  <!-- Text - Arabic -->
+  <text x="100" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white">بيتنا</text>
+  <text x="100" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="white">الفلسطيني</text>
+  
+  <!-- Decorative element -->
+  <text x="100" y="170" text-anchor="middle" font-size="24">🫒</text>
+</svg>
