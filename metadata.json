@@ -1,0 +1,8 @@
+{
+  "name": "Baytna Al-Falastini - بيتنا الفلسطيني",
+  "description": "مطعم فلسطيني أصيل يقدم أشهى الأكلات الفلسطينية التقليدية",
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ],
+  "permissions": []
+}

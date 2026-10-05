@@ -1,0 +1,16 @@
+{
+  "name": "baytna-al-falastini",
+  "version": "1.0.0",
+  "description": "بيتنا الفلسطيني - مطعم فلسطيني أصيل يقدم أشهى الأكلات الفلسطينية التقليدية",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "build": "echo 'No build step required for static website'",
+    "lint": "node -c server.js script.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

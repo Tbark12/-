@@ -178,10 +178,47 @@ function initIntersectionObserver() {
 // Replace this with your actual WhatsApp number
 const WHATSAPP_NUMBER = ''; // Add your number here, e.g., '+970123456789'
 
+function showToast(message) {
+    let toast = document.getElementById('order-toast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'order-toast';
+        toast.style.cssText = `
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #556B2F;
+            color: #ffffff;
+            padding: 16px 28px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+            z-index: 10000;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            pointer-events: none;
+            direction: rtl;
+            border: 1px solid #D4AF37;
+            max-width: 90%;
+        `;
+        document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.style.opacity = '1';
+    toast.style.transform = 'translateX(-50%) translateY(0)';
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(-50%) translateY(10px)';
+    }, 4000);
+}
+
 function orderDish(dishName, price) {
     // Check if WhatsApp number is configured
     if (!WHATSAPP_NUMBER) {
-        alert('سيتم تفعيل خدمة الطلب عبر واتساب قريباً. يرجى التواصل معنا هاتفياً.');
+        showToast(`أهلاً بكم! تم اختيار "${dishName}" (${price} ₪). خدمة الطلب عبر واتساب ستتوفر قريباً، يسعدنا تواصلكم هاتفياً أو تشريفنا في دمشق، مخيم اليرموك.`);
         return;
     }
 
@@ -194,8 +231,12 @@ function orderDish(dishName, price) {
     // Create WhatsApp URL
     const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
     
-    // Open WhatsApp in new tab
-    window.open(whatsappURL, '_blank');
+    // Open WhatsApp safely via anchor
+    const link = document.createElement('a');
+    link.href = whatsappURL;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.click();
 }
 
 // ==========================================
