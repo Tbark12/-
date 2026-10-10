@@ -46,6 +46,15 @@
                     <li><a href="#desserts" class="nav-link">الحلويات</a></li>
                     <li><a href="#story" class="nav-link">قصتنا</a></li>
                     <li><a href="#contact" class="nav-link">تواصل معنا</a></li>
+                    <li class="nav-auth-item" id="navAuthContainer">
+                        <a href="login.html" class="nav-auth-btn" id="navAuthBtn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            <span>تسجيل الدخول</span>
+                        </a>
+                    </li>
                     <li><a href="#food" class="btn btn-primary btn-order">اطلب الآن</a></li>
                 </ul>
             </div>
@@ -360,8 +369,8 @@
                             </svg>
                         </div>
                         <div class="contact-details">
-                            <h3>واتساب</h3>
-                            <p>قريباً</p>
+                            <h3>الطلب المباشر</h3>
+                            <p>عبر الموقع وتطبيق الويب</p>
                         </div>
                     </div>
 
@@ -426,10 +435,13 @@
                             دمشق، مخيم اليرموك
                         </li>
                         <li>
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="9" y1="9" x2="15" y2="9"></line>
+                                <line x1="9" y1="13" x2="15" y2="13"></line>
+                                <line x1="9" y1="17" x2="11" y2="17"></line>
                             </svg>
-                            واتساب: قريباً
+                            نظام الطلب المباشر والتوصيل الفوري
                         </li>
                     </ul>
                 </div>
@@ -452,6 +464,226 @@
             </div>
         </div>
     </footer>
+
+    <!-- Order Placement Modal -->
+    <div class="order-modal-overlay" id="orderPlacementModal">
+        <div class="order-modal-card">
+            <div class="order-modal-header">
+                <h3 class="order-modal-title">
+                    <span>🍲 طلب وجبة من بيتنا الفلسطيني</span>
+                </h3>
+                <button class="order-modal-close" onclick="closeOrderModal()">&times;</button>
+            </div>
+            <div class="order-modal-body">
+                <div class="dish-highlight-box">
+                    <div class="dish-highlight-info">
+                        <h4 id="modalDishName">المقلوبة</h4>
+                        <p id="modalDishDesc">طبق فلسطيني أصيل ومحضر طازجاً</p>
+                    </div>
+                    <div class="dish-highlight-price" id="modalDishPrice">25 ₪</div>
+                </div>
+
+                <div class="stepper-container">
+                    <span class="stepper-label">الكمية المطلوبة:</span>
+                    <button type="button" class="stepper-btn" onclick="updateModalQty(-1)">-</button>
+                    <span class="stepper-value" id="modalQtyDisplay">1</span>
+                    <button type="button" class="stepper-btn" onclick="updateModalQty(1)">+</button>
+                </div>
+
+                <div class="modal-input-group">
+                    <label class="modal-input-label">اسم العميل *</label>
+                    <input type="text" id="modalCustomerName" class="modal-input" placeholder="اسمك الكريم">
+                </div>
+
+                <div class="modal-input-group">
+                    <label class="modal-input-label">رقم الهاتف للتوصيل *</label>
+                    <input type="tel" id="modalCustomerPhone" class="modal-input" placeholder="رقم الموبايل للتواصل" dir="ltr">
+                </div>
+
+                <div class="modal-input-group">
+                    <label class="modal-input-label">عنوان التوصيل بالتفصيل *</label>
+                    <input type="text" id="modalDeliveryAddress" class="modal-input" placeholder="دمشق، مخيم اليرموك، شارع فلسطين، بناء...">
+                </div>
+
+                <div class="modal-input-group">
+                    <label class="modal-input-label">ملاحظات خاصة للمطبخ (اختياري)</label>
+                    <input type="text" id="modalKitchenNotes" class="modal-input" placeholder="مثال: زيادة مكسرات، بدون بصل، حار...">
+                </div>
+
+                <div class="modal-order-summary">
+                    <div class="summary-row">
+                        <span>سعر الوجبة:</span>
+                        <span id="summaryUnitPrice">25 ₪</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>الكمية:</span>
+                        <span id="summaryQty">1</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>رسوم التوصيل:</span>
+                        <span style="color: #2E7D32;">مجاناً (عرض خاص)</span>
+                    </div>
+                    <div class="summary-row total-row">
+                        <span>الإجمالي للدفع عند الاستلام:</span>
+                        <span id="summaryTotalPrice">25 ₪</span>
+                    </div>
+                </div>
+
+                <button type="button" class="btn-confirm-order" onclick="submitModalOrder()">
+                    ✓ تأكيد الطلب الفوري الآن
+                </button>
+
+                <div class="modal-auth-prompt" id="modalAuthPrompt">
+                    <span>للاستمتاع بحفظ بياناتك وتتبع طلباتك تلقائياً: </span>
+                    <a href="login.html" id="modalLoginDirectLink">سجّل دخولك الآن</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Success Receipt Modal -->
+    <div class="order-modal-overlay" id="orderSuccessModal">
+        <div class="order-modal-card">
+            <div class="order-modal-header">
+                <h3 class="order-modal-title" style="color: #2E7D32;">
+                    <span>✓ تم تأكيد طلبك بنجاح!</span>
+                </h3>
+                <button class="order-modal-close" onclick="closeSuccessModal()">&times;</button>
+            </div>
+            <div class="order-modal-body">
+                <div class="success-receipt-badge">
+                    <div class="success-icon-circle">✓</div>
+                    <h4 style="margin: 0 0 6px 0; font-size: 20px; font-weight: 800; color: #1A1A1A;">شكراً لاختيارك بيتنا الفلسطيني!</h4>
+                    <p style="margin: 0; font-size: 14px; color: #757575;">
+                        رقم الطلب: <strong id="successOrderId" style="color: #556B2F; font-size: 16px;">#BAYT-1234</strong>
+                    </p>
+                </div>
+
+                <!-- Live Status Tracker -->
+                <div class="order-tracker-timeline">
+                    <div class="timeline-step completed">
+                        <div class="step-bubble">✓</div>
+                        <span class="step-label">تم الاستلام</span>
+                    </div>
+                    <div class="timeline-step active">
+                        <div class="step-bubble">🍳</div>
+                        <span class="step-label">قيد التحضير</span>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="step-bubble">🛵</div>
+                        <span class="step-label">في الطريق</span>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="step-bubble">🏠</div>
+                        <span class="step-label">تم التسليم</span>
+                    </div>
+                </div>
+
+                <div class="modal-order-summary">
+                    <div class="summary-row">
+                        <span>الطلب:</span>
+                        <strong id="successDishDetails">المقلوبة × 1</strong>
+                    </div>
+                    <div class="summary-row">
+                        <span>المبلغ الإجمالي:</span>
+                        <strong id="successTotalAmount" style="color: #C41E3A;">25 ₪</strong>
+                    </div>
+                    <div class="summary-row">
+                        <span>العنوان:</span>
+                        <span id="successDeliveryAddress">دمشق، مخيم اليرموك</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>وقت التوصيل التقديري:</span>
+                        <span style="font-weight: 700; color: #556B2F;">30 - 45 دقيقة</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>طريقة الدفع:</span>
+                        <span>نقداً عند الاستلام (كاش)</span>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 10px;">
+                    <button type="button" class="btn btn-primary" style="flex: 1;" onclick="closeSuccessModal()">
+                        متابعة التصفح
+                    </button>
+                    <button type="button" class="btn btn-secondary" style="flex: 1; color: #556B2F; border-color: #556B2F;" onclick="openMyOrdersModal()">
+                        عرض طلباتي
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- My Orders Modal -->
+    <div class="order-modal-overlay" id="myOrdersModal">
+        <div class="order-modal-card">
+            <div class="order-modal-header">
+                <h3 class="order-modal-title">
+                    <span>📋 سجل طلباتي السابقة</span>
+                </h3>
+                <button class="order-modal-close" onclick="closeMyOrdersModal()">&times;</button>
+            </div>
+            <div class="order-modal-body">
+                <div id="myOrdersListContainer">
+                    <p style="text-align: center; color: #757575; padding: 20px 0;">لا توجد طلبات سابقة حتى الآن.</p>
+                </div>
+                <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center;">
+                    <a href="login.html" class="nav-auth-btn" style="text-decoration: none;">إدارة الحساب في صفحة الدخول</a>
+                    <button type="button" class="btn btn-small" onclick="closeMyOrdersModal()">إغلاق</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating AI Bubble (Bottom-Right) -->
+    <button class="ai-chat-bubble" id="aiChatBubble" onclick="toggleAiChat()" aria-label="تحدث مع مساعد بيتنا الفلسطيني الذكي" title="اسأل الذكاء الاصطناعي">
+        <span class="ai-bubble-pulse"></span>
+        <span class="ai-bubble-icon">✨</span>
+        <span class="ai-bubble-badge">AI</span>
+        <span class="ai-bubble-tooltip">مساعد بيتنا الفلسطيني الذكي</span>
+    </button>
+
+    <!-- AI Chat Window -->
+    <div class="ai-chat-window" id="aiChatWindow">
+        <div class="ai-chat-header">
+            <div class="ai-header-info">
+                <div class="ai-avatar">🍲</div>
+                <div class="ai-title-wrap">
+                    <h4>مساعد بيتنا الفلسطيني</h4>
+                    <span>متصل الآن · اسألني عن الأكلات والطلب</span>
+                </div>
+            </div>
+            <button class="ai-close-btn" onclick="toggleAiChat()" aria-label="إغلاق المحادثة">&times;</button>
+        </div>
+
+        <div class="ai-chat-messages" id="aiChatMessages">
+            <div class="ai-message assistant">
+                <div class="ai-msg-bubble">
+                    أهلاً وسهلاً بك في <strong>بيتنا الفلسطيني</strong>! 🌿<br>
+                    أنا مساعدك الذكي، يسعدني الإجابة عن أي سؤال حول أطباقنا التراثية (كالمقلوبة والمسخن والمفتول)، حلوياتنا النابلسية، أو مساعدتك في اختيار وجبتك وإتمام طلبك. كيف يمكنني خدمتك اليوم؟
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick suggestion chips -->
+        <div class="ai-suggestions-box">
+            <button class="ai-chip" onclick="sendAiSuggestion('اقترح لي وجبة غداء شهية اليوم من القائمة')">🍲 اقترح لي وجبة</button>
+            <button class="ai-chip" onclick="sendAiSuggestion('ما هي مكونات طبق المقلوبة الفلسطيني؟')">🍗 مكونات المقلوبة</button>
+            <button class="ai-chip" onclick="sendAiSuggestion('ما هي الحلويات التراثية المتوفرة لديكم؟')">🍯 الحلويات المتوفرة</button>
+            <button class="ai-chip" onclick="sendAiSuggestion('كيف يمكنني طلب الطعام وتوصيله لمنزلي؟')">🛵 طريقة الطلب والتوصيل</button>
+        </div>
+
+        <!-- Input Bar -->
+        <form class="ai-chat-input-bar" id="aiChatForm" onsubmit="handleAiChatSubmit(event)">
+            <input type="text" id="aiChatInput" class="ai-input" placeholder="اكتب سؤالك هنا..." autocomplete="off">
+            <button type="submit" class="ai-send-btn" id="aiSendBtn" aria-label="إرسال">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transform: rotate(180deg);">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+            </button>
+        </form>
+    </div>
 
     <script src="script.js"></script>
 </body>

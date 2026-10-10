@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول والطلب - بيتنا الفلسطيني</title>
+    <meta name="description" content="سجل دخولك في بيتنا الفلسطيني لطلب أشهى الأكلات والحلويات الفلسطينية مباشرة مع خدمة التوصيل السريع.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        .auth-page {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #F8F6F0 0%, #EDE8DC 100%);
+            display: flex;
+            flex-direction: column;
+            color: #1A1A1A;
+        }
+
+        .auth-header {
+            padding: 20px 0;
+            background: #ffffff;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            border-bottom: 2px solid #556B2F;
+        }
+
+        .auth-header-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .auth-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #1A1A1A;
+        }
+
+        .auth-brand img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid #D4AF37;
+            object-fit: cover;
+        }
+
+        .auth-brand-text h1 {
+            font-size: 20px;
+            margin: 0;
+            color: #556B2F;
+            font-weight: 800;
+        }
+
+        .auth-brand-text span {
+            font-size: 13px;
+            color: #757575;
+        }
+
+        .auth-back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #556B2F;
+            font-weight: 600;
+            font-size: 15px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            background: #F4F6F0;
+            transition: all 0.2s ease;
+        }
+
+        .auth-back-link:hover {
+            background: #556B2F;
+            color: #ffffff;
+        }
+
+        .auth-main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .auth-card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 520px;
+            border-radius: 16px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+            border: 1px solid #E5E1D8;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .dish-alert-banner {
+            background: #FAF5EB;
+            border-bottom: 1px solid #E8DCBD;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .dish-alert-icon {
+            font-size: 28px;
+            line-height: 1;
+        }
+
+        .dish-alert-text {
+            font-size: 14px;
+            color: #4A4A4A;
+            line-height: 1.5;
+        }
+
+        .dish-alert-text strong {
+            color: #556B2F;
+            font-size: 15px;
+        }
+
+        .auth-tabs {
+            display: flex;
+            background: #F5F3EC;
+            padding: 6px;
+            border-bottom: 1px solid #E5E1D8;
+        }
+
+        .auth-tab-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: transparent;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: #757575;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .auth-tab-btn.active {
+            background: #ffffff;
+            color: #556B2F;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .auth-form-wrapper {
+            padding: 32px 28px;
+        }
+
+        .auth-form-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: #1A1A1A;
+            margin-bottom: 6px;
+        }
+
+        .auth-form-subtitle {
+            font-size: 14px;
+            color: #757575;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #2D3748;
+            margin-bottom: 6px;
+        }
+
+        .form-input-container {
+            position: relative;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 15px;
+            font-family: 'Tajawal', sans-serif;
+            border: 1.5px solid #D6D2C4;
+            border-radius: 10px;
+            background: #FCFBF9;
+            color: #1A1A1A;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #556B2F;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(85, 107, 47, 0.15);
+        }
+
+        .password-toggle {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #757575;
+            font-size: 13px;
+            font-family: 'Tajawal', sans-serif;
+            padding: 4px;
+        }
+
+        .form-extra-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            margin-bottom: 22px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            color: #4A4A4A;
+        }
+
+        .forgot-pass-link {
+            color: #556B2F;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .forgot-pass-link:hover {
+            text-decoration: underline;
+        }
+
+        .btn-submit-auth {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #556B2F 0%, #3D4A21 100%);
+            color: #ffffff;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 14px rgba(85, 107, 47, 0.25);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-submit-auth:hover {
+            background: linear-gradient(135deg, #6B8E3B 0%, #556B2F 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(85, 107, 47, 0.35);
+        }
+
+        .quick-demo-box {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px dashed #D6D2C4;
+            text-align: center;
+        }
+
+        .quick-demo-title {
+            font-size: 13px;
+            color: #757575;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .btn-demo-quick {
+            width: 100%;
+            background: #F4F6F0;
+            border: 1px solid #D1DAC2;
+            color: #556B2F;
+            padding: 10px;
+            border-radius: 8px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-demo-quick:hover {
+            background: #E8EDE0;
+            border-color: #556B2F;
+        }
+
+        /* Logged In Dashboard View */
+        .user-profile-view {
+            display: none;
+            padding: 32px 28px;
+        }
+
+        .user-badge-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #EFECE6;
+        }
+
+        .user-avatar-circle {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #556B2F;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            border: 2px solid #D4AF37;
+        }
+
+        .user-details h3 {
+            font-size: 18px;
+            margin: 0 0 4px 0;
+            color: #1A1A1A;
+        }
+
+        .user-details p {
+            font-size: 13px;
+            color: #757575;
+            margin: 0;
+        }
+
+        .profile-info-grid {
+            background: #FAF8F5;
+            border: 1px solid #EFECE6;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+
+        .profile-info-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            padding: 6px 0;
+        }
+
+        .profile-info-label {
+            color: #757575;
+        }
+
+        .profile-info-value {
+            font-weight: 600;
+            color: #1A1A1A;
+        }
+
+        /* Order Direct Placement Box if dish is selected */
+        .direct-order-box {
+            background: #FDFBF7;
+            border: 1.5px solid #D4AF37;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .direct-order-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: #556B2F;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .order-qty-control {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .qty-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            background: #556B2F;
+            color: #ffffff;
+            border: none;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qty-btn:hover {
+            background: #3D4A21;
+        }
+
+        .qty-number {
+            font-size: 18px;
+            font-weight: 700;
+            min-width: 24px;
+            text-align: center;
+        }
+
+        .order-total-price {
+            font-size: 18px;
+            font-weight: 800;
+            color: #C41E3A;
+        }
+
+        .profile-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn-order-now-direct {
+            background: linear-gradient(135deg, #C41E3A 0%, #8B1A2A 100%);
+            color: #ffffff;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 14px rgba(196, 30, 58, 0.25);
+        }
+
+        .btn-order-now-direct:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(196, 30, 58, 0.35);
+        }
+
+        .btn-profile-secondary {
+            background: #ffffff;
+            border: 1.5px solid #556B2F;
+            color: #556B2F;
+            padding: 12px;
+            border-radius: 10px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-profile-secondary:hover {
+            background: #F4F6F0;
+        }
+
+        .btn-logout {
+            background: #FFF5F5;
+            border: 1px solid #FED7D7;
+            color: #C53030;
+            padding: 10px;
+            border-radius: 8px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-logout:hover {
+            background: #FED7D7;
+        }
+
+        /* Order History Table */
+        .orders-history-container {
+            margin-top: 24px;
+            border-top: 1px solid #EFECE6;
+            padding-top: 20px;
+        }
+
+        .orders-history-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #2D3748;
+        }
+
+        .order-history-card {
+            background: #FAF8F5;
+            border: 1px solid #E5E1D8;
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 10px;
+        }
+
+        .order-history-head {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            margin-bottom: 6px;
+            color: #757575;
+        }
+
+        .order-status-badge {
+            font-size: 12px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
+        }
+
+        .status-preparing {
+            background: #FEFCBF;
+            color: #744210;
+        }
+
+        .status-delivered {
+            background: #C6F6D5;
+            color: #22543D;
+        }
+
+        .auth-footer {
+            padding: 24px 20px;
+            text-align: center;
+            font-size: 13px;
+            color: #757575;
+        }
+
+        /* Responsive Media Queries for login.html */
+        @media (max-width: 768px) {
+            .auth-header {
+                padding: 14px 0;
+            }
+
+            .auth-header-container {
+                padding: 0 16px;
+            }
+
+            .auth-brand img {
+                width: 44px;
+                height: 44px;
+            }
+
+            .auth-brand-text h1 {
+                font-size: 17px;
+            }
+
+            .auth-brand-text span {
+                font-size: 11px;
+            }
+
+            .auth-back-link {
+                font-size: 13px;
+                padding: 7px 12px;
+            }
+
+            .auth-main {
+                padding: 24px 14px;
+            }
+
+            .auth-card {
+                border-radius: 14px;
+            }
+
+            .auth-form-wrapper,
+            .user-profile-view {
+                padding: 24px 18px;
+            }
+
+            .auth-form-title {
+                font-size: 20px;
+            }
+
+            .form-input {
+                font-size: 16px; /* Prevents auto-zoom on mobile */
+                padding: 13px 14px;
+            }
+
+            .btn-submit-auth {
+                min-height: 48px;
+                font-size: 16px;
+            }
+
+            .qty-btn {
+                width: 44px;
+                height: 44px;
+                font-size: 20px;
+            }
+
+            .btn-order-now-direct {
+                min-height: 48px;
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .auth-header-container {
+                gap: 8px;
+            }
+
+            .auth-brand-text span {
+                display: none;
+            }
+
+            .auth-back-link {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+
+            .auth-main {
+                padding: 16px 8px;
+            }
+
+            .auth-form-wrapper,
+            .user-profile-view {
+                padding: 20px 14px;
+            }
+
+            .dish-alert-banner {
+                padding: 12px 14px;
+            }
+
+            .dish-alert-icon {
+                font-size: 22px;
+            }
+
+            .dish-alert-text {
+                font-size: 13px;
+            }
+
+            .auth-tab-btn {
+                padding: 10px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body class="auth-page">
+
+    <!-- Header -->
+    <header class="auth-header">
+        <div class="auth-header-container">
+            <a href="index.html" class="auth-brand">
+                <img src="images/logo.jpg" alt="بيتنا الفلسطيني" onerror="this.src='logo.svg'">
+                <div class="auth-brand-text">
+                    <h1>بيتنا الفلسطيني</h1>
+                    <span>بوابة الطلب السريع والتوصيل</span>
+                </div>
+            </a>
+            <div style="display: flex; gap: 8px; align-items: center;">
+                <a href="index.html#inquiry" class="auth-back-link" style="color: #556B2F; border: 1px solid #D4AF37; background: #FAF7EE;">
+                    ✨ استعلام عن الأكلات
+                </a>
+                <a href="index.html" class="auth-back-link">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                    العودة للقائمة
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="auth-main">
+        <div class="auth-card">
+
+            <!-- Banner if redirected to order a specific dish -->
+            <div id="dishAlertBanner" class="dish-alert-banner" style="display: none;">
+                <div class="dish-alert-icon">🍲</div>
+                <div class="dish-alert-text">
+                    أنت بصدد طلب: <strong id="bannerDishName">طبق فلسطيني</strong> بسعر <strong id="bannerDishPrice">0 ₪</strong>.<br>
+                    سجّل دخولك لتأكيد الطلب وتحديد عنوان التوصيل مباشرة!
+                </div>
+            </div>
+
+            <!-- UNLOGGED IN VIEW: Tabs & Forms -->
+            <div id="authFormsContainer">
+                <div class="auth-tabs">
+                    <button class="auth-tab-btn active" id="tabLoginBtn" onclick="switchAuthTab('login')">تسجيل الدخول</button>
+                    <button class="auth-tab-btn" id="tabRegisterBtn" onclick="switchAuthTab('register')">حساب جديد</button>
+                </div>
+
+                <!-- LOGIN FORM -->
+                <div id="loginFormSection" class="auth-form-wrapper">
+                    <h2 class="auth-form-title">أهلاً بك مجدداً</h2>
+                    <p class="auth-form-subtitle">سجّل دخولك لطلب طعامك المفضل وتتبّع التوصيل</p>
+
+                    <form id="loginForm" onsubmit="handleLoginSubmit(event)">
+                        <div class="form-group">
+                            <label class="form-label" for="loginIdentifier">رقم الهاتف أو البريد الإلكتروني</label>
+                            <div class="form-input-container">
+                                <input type="text" id="loginIdentifier" class="form-input" placeholder="مثال: 0988123456 أو user@example.com" required dir="ltr">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="loginPassword">كلمة المرور</label>
+                            <div class="form-input-container">
+                                <input type="password" id="loginPassword" class="form-input" placeholder="••••••••" required>
+                                <button type="button" class="password-toggle" onclick="togglePasswordVisibility('loginPassword', this)">إظهار</button>
+                            </div>
+                        </div>
+
+                        <div class="form-extra-row">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="rememberMe" checked>
+                                <span>تذكرني على هذا الجهاز</span>
+                            </label>
+                            <a href="#" class="forgot-pass-link" onclick="handleForgotPassword(event)">نسيت كلمة المرور؟</a>
+                        </div>
+
+                        <button type="submit" class="btn-submit-auth">
+                            <span>تسجيل الدخول ومتابعة الطلب</span>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </button>
+                    </form>
+
+                    <!-- Quick Demo Buttons -->
+                    <div class="quick-demo-box">
+                        <span class="quick-demo-title">لتجربة النظام فوراً وبضغطة واحدة:</span>
+                        <button type="button" class="btn-demo-quick" onclick="loginDemoAccount()">
+                            ⚡ دخول سريع كعميل تجريبي (أحمد الفلسطيني)
+                        </button>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 14px; padding-top: 12px; border-top: 1px dashed #E5E1D8; font-size: 13px;">
+                        <a href="index.html#inquiry" style="color: #556B2F; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+                            <span>🔍 تريد معرفة مكونات وقصة أي طبق قبل الطلب؟</span>
+                            <span style="text-decoration: underline;">استعلم هنا</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- REGISTER FORM -->
+                <div id="registerFormSection" class="auth-form-wrapper" style="display: none;">
+                    <h2 class="auth-form-title">إنشاء حساب جديد</h2>
+                    <p class="auth-form-subtitle">انضم لعائلة بيتنا الفلسطيني واستمتع بأسهل تجربة طلب طعام</p>
+
+                    <form id="registerForm" onsubmit="handleRegisterSubmit(event)">
+                        <div class="form-group">
+                            <label class="form-label" for="regFullName">الاسم الكامل *</label>
+                            <input type="text" id="regFullName" class="form-input" placeholder="مثال: وسيم عبد المعطي" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="regPhone">رقم الهاتف المحمول للتوصيل *</label>
+                            <input type="tel" id="regPhone" class="form-input" placeholder="مثال: 0988123456" required dir="ltr">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="regAddress">عنوان التوصيل بالتفصيل *</label>
+                            <input type="text" id="regAddress" class="form-input" placeholder="مثال: دمشق، مخيم اليرموك، شارع فلسطين، بناء 4" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="regEmail">البريد الإلكتروني (اختياري)</label>
+                            <input type="email" id="regEmail" class="form-input" placeholder="name@example.com" dir="ltr">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="regPassword">كلمة المرور *</label>
+                            <div class="form-input-container">
+                                <input type="password" id="regPassword" class="form-input" placeholder="6 أحرف على الأقل" minlength="6" required>
+                                <button type="button" class="password-toggle" onclick="togglePasswordVisibility('regPassword', this)">إظهار</button>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-submit-auth">
+                            <span>إنشاء الحساب ومتابعة الطلب</span>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- LOGGED IN USER PROFILE / DIRECT ORDER DASHBOARD -->
+            <div id="userProfileSection" class="user-profile-view">
+                <div class="user-badge-header">
+                    <div class="user-avatar-circle" id="profileAvatarLetter">و</div>
+                    <div class="user-details">
+                        <h3 id="profileName">مرحباً، عميلنا العزيز</h3>
+                        <p id="profilePhone">0988123456</p>
+                    </div>
+                </div>
+
+                <!-- If user arrived with a selected dish from menu -->
+                <div id="directDishOrderBox" class="direct-order-box" style="display: none;">
+                    <div class="direct-order-title">
+                        <span>إتمام طلب: <strong id="orderDishTitle">المقلوبة</strong></span>
+                        <span class="order-total-price" id="orderTotalPriceText">25 ₪</span>
+                    </div>
+
+                    <div class="order-qty-control">
+                        <span style="font-size: 14px; color: #4A4A4A;">الكمية:</span>
+                        <button type="button" class="qty-btn" onclick="changeOrderQty(-1)">-</button>
+                        <span class="qty-number" id="orderQtyDisplay">1</span>
+                        <button type="button" class="qty-btn" onclick="changeOrderQty(1)">+</button>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" style="font-size: 13px;">تأكيد عنوان التوصيل:</label>
+                        <input type="text" id="orderDeliveryAddress" class="form-input" style="font-size: 14px;">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" style="font-size: 13px;">ملاحظات خاصة للمطبخ (اختياري):</label>
+                        <input type="text" id="orderKitchenNotes" class="form-input" placeholder="مثال: زيادة مكسرات، بدون بصل، خبز إضافي" style="font-size: 14px;">
+                    </div>
+
+                    <div style="font-size: 13px; color: #556B2F; margin-bottom: 16px; font-weight: 600;">
+                        💳 طريقة الدفع: الدفع نقداً عند الاستلام (كاش)
+                    </div>
+
+                    <button type="button" class="btn-order-now-direct" onclick="submitDirectOrder()">
+                        ✓ تأكيد وإرسال الطلب الآن
+                    </button>
+                </div>
+
+                <div class="profile-info-grid">
+                    <div class="profile-info-row">
+                        <span class="profile-info-label">عنوان التوصيل المسجل:</span>
+                        <span class="profile-info-value" id="profileAddress">دمشق، مخيم اليرموك</span>
+                    </div>
+                    <div class="profile-info-row">
+                        <span class="profile-info-label">حالة الحساب:</span>
+                        <span class="profile-info-value" style="color: #2E7D32;">✓ نشط ومفعل للطلب الفوري</span>
+                    </div>
+                </div>
+
+                <div class="profile-actions">
+                    <a href="index.html#food" class="btn-profile-secondary">
+                        🍲 تصفح قائمة الأكلات والحلويات للطلب
+                    </a>
+                    <button type="button" class="btn-logout" onclick="handleLogout()">
+                        تسجيل الخروج
+                    </button>
+                </div>
+
+                <!-- Previous Orders -->
+                <div class="orders-history-container">
+                    <h4 class="orders-history-title">طلباتي الأخيرة</h4>
+                    <div id="ordersListContainer">
+                        <p style="font-size: 13px; color: #757575;">لا توجد طلبات سابقة حتى الآن.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="auth-footer">
+        © 2026 بيتنا الفلسطيني - أصالة فلسطين بطعم البيت. جميع الحقوق محفوظة.
+    </footer>
+
+    <!-- Notification Toast -->
+    <div id="authToast" style="display: none; position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #556B2F; color: white; padding: 14px 24px; border-radius: 10px; font-size: 15px; font-weight: 600; box-shadow: 0 8px 24px rgba(0,0,0,0.25); z-index: 99999; border: 1px solid #D4AF37;"></div>
+
+    <script>
+        // State variables
+        let selectedDish = null;
+        let selectedPrice = 0;
+        let currentQty = 1;
+
+        // On Load
+        document.addEventListener('DOMContentLoaded', () => {
+            parseQueryParams();
+            checkCurrentUser();
+            renderOrdersList();
+        });
+
+        function parseQueryParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const dish = urlParams.get('dish');
+            const price = urlParams.get('price');
+
+            if (dish && price) {
+                selectedDish = decodeURIComponent(dish);
+                selectedPrice = parseFloat(price) || 0;
+                
+                // Show banner
+                document.getElementById('dishAlertBanner').style.display = 'flex';
+                document.getElementById('bannerDishName').textContent = selectedDish;
+                document.getElementById('bannerDishPrice').textContent = `${selectedPrice} ₪`;
+                
+                // Set in direct order box
+                document.getElementById('orderDishTitle').textContent = selectedDish;
+                updateOrderTotal();
+            }
+        }
+
+        function switchAuthTab(tab) {
+            const tabLoginBtn = document.getElementById('tabLoginBtn');
+            const tabRegisterBtn = document.getElementById('tabRegisterBtn');
+            const loginSection = document.getElementById('loginFormSection');
+            const registerSection = document.getElementById('registerFormSection');
+
+            if (tab === 'login') {
+                tabLoginBtn.classList.add('active');
+                tabRegisterBtn.classList.remove('active');
+                loginSection.style.display = 'block';
+                registerSection.style.display = 'none';
+            } else {
+                tabRegisterBtn.classList.add('active');
+                tabLoginBtn.classList.remove('active');
+                registerSection.style.display = 'block';
+                loginSection.style.display = 'none';
+            }
+        }
+
+        function togglePasswordVisibility(inputId, btn) {
+            const input = document.getElementById(inputId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                btn.textContent = 'إخفاء';
+            } else {
+                input.type = 'password';
+                btn.textContent = 'إظهار';
+            }
+        }
+
+        function showAuthToast(msg, isError = false) {
+            const toast = document.getElementById('authToast');
+            toast.textContent = msg;
+            toast.style.background = isError ? '#C41E3A' : '#556B2F';
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 4000);
+        }
+
+        function handleForgotPassword(e) {
+            e.preventDefault();
+            const identifier = document.getElementById('loginIdentifier').value;
+            if (!identifier) {
+                showAuthToast('يرجى كتابة رقم الهاتف أو البريد الإلكتروني أولاً لاستعادة كلمة المرور', true);
+            } else {
+                showAuthToast('تم إرسال رمز استعادة الحساب إلى ' + identifier + ' بنجاح!');
+            }
+        }
+
+        // Handle Login Submission
+        async function handleLoginSubmit(e) {
+            e.preventDefault();
+            const identifier = document.getElementById('loginIdentifier').value.trim();
+            const pass = document.getElementById('loginPassword').value;
+
+            if (!identifier || !pass) {
+                showAuthToast('يرجى ملء جميع الحقول المطلوبة', true);
+                return;
+            }
+
+            try {
+                showAuthToast('جاري التحقق من الحساب عبر Supabase...');
+                const res = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ identifier, password: pass })
+                });
+
+                const result = await res.json();
+
+                if (res.ok && result.user) {
+                    const u = result.user;
+                    const matchedUser = {
+                        id: u.id,
+                        name: u.full_name || u.name || 'عميلنا العزيز',
+                        phone: u.phone,
+                        address: u.delivery_address || u.address,
+                        email: u.email
+                    };
+                    saveUserSession(matchedUser);
+                    showAuthToast('تم تسجيل الدخول بنجاح عبر Supabase! مرحباً بك يا ' + matchedUser.name);
+                    checkCurrentUser();
+                    return;
+                } else if (!result.fallback) {
+                    showAuthToast(result.error || 'فشل تسجيل الدخول: تحقق من بياناتك', true);
+                    return;
+                }
+            } catch (err) {
+                console.warn('Network error reaching Supabase proxy, using local fallback:', err);
+            }
+
+            // Local fallback
+            let users = JSON.parse(localStorage.getItem('baytna_registered_users') || '[]');
+            let matchedUser = users.find(u => u.phone === identifier || u.email === identifier);
+
+            if (!matchedUser) {
+                matchedUser = {
+                    name: 'زبون بيتنا الفلسطيني',
+                    phone: identifier,
+                    address: 'دمشق، مخيم اليرموك، شارع فلسطين',
+                    email: identifier.includes('@') ? identifier : ''
+                };
+            }
+
+            saveUserSession(matchedUser);
+            showAuthToast('تم تسجيل الدخول بنجاح! مرحباً بك يا ' + matchedUser.name);
+            checkCurrentUser();
+        }
+
+        // Handle Register Submission
+        async function handleRegisterSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('regFullName').value.trim();
+            const phone = document.getElementById('regPhone').value.trim();
+            const address = document.getElementById('regAddress').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value;
+
+            if (!name || !phone || !address || !password) {
+                showAuthToast('يرجى إكمال جميع الحقول الإلزامية', true);
+                return;
+            }
+
+            try {
+                showAuthToast('جاري إنشاء الحساب في Supabase...');
+                const res = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ fullName: name, phone, address, email, password })
+                });
+
+                const result = await res.json();
+
+                if (res.ok && result.user) {
+                    const u = result.user;
+                    const newUser = {
+                        id: u.id,
+                        name: u.full_name || name,
+                        phone: u.phone || phone,
+                        address: u.delivery_address || address,
+                        email: u.email || email
+                    };
+                    saveUserSession(newUser);
+                    showAuthToast('تم إنشاء الحساب وحفظه في Supabase بنجاح! أهلاً بك.');
+                    checkCurrentUser();
+                    return;
+                } else if (!result.fallback) {
+                    showAuthToast(result.error || 'تعذر إنشاء الحساب', true);
+                    return;
+                }
+            } catch (err) {
+                console.warn('Network error reaching Supabase proxy, using local fallback:', err);
+            }
+
+            const newUser = { name, phone, address, email };
+            let users = JSON.parse(localStorage.getItem('baytna_registered_users') || '[]');
+            users.push(newUser);
+            localStorage.setItem('baytna_registered_users', JSON.stringify(users));
+
+            saveUserSession(newUser);
+            showAuthToast('تم إنشاء الحساب بنجاح! أهلاً بك في بيتنا الفلسطيني.');
+            checkCurrentUser();
+        }
+
+        // Fast Demo Account
+        function loginDemoAccount() {
+            const demoUser = {
+                name: 'أحمد الفلسطيني',
+                phone: '0988123456',
+                address: 'دمشق، مخيم اليرموك، شارع فلسطين، بناية القدس',
+                email: 'ahmad@falastini.sy'
+            };
+            saveUserSession(demoUser);
+            showAuthToast('تم الدخول السريع كعميل تجريبي بنجاح!');
+            checkCurrentUser();
+        }
+
+        function saveUserSession(user) {
+            localStorage.setItem('baytna_active_user', JSON.stringify(user));
+        }
+
+        function checkCurrentUser() {
+            const userStr = localStorage.getItem('baytna_active_user');
+            const formsContainer = document.getElementById('authFormsContainer');
+            const profileSection = document.getElementById('userProfileSection');
+
+            if (userStr) {
+                const user = JSON.parse(userStr);
+                formsContainer.style.display = 'none';
+                profileSection.style.display = 'block';
+
+                document.getElementById('profileName').textContent = `مرحباً، ${user.name}`;
+                document.getElementById('profilePhone').textContent = user.phone;
+                document.getElementById('profileAddress').textContent = user.address;
+                document.getElementById('profileAvatarLetter').textContent = user.name.charAt(0);
+
+                if (selectedDish) {
+                    const directBox = document.getElementById('directDishOrderBox');
+                    directBox.style.display = 'block';
+                    document.getElementById('orderDeliveryAddress').value = user.address;
+                }
+            } else {
+                formsContainer.style.display = 'block';
+                profileSection.style.display = 'none';
+                const directBox = document.getElementById('directDishOrderBox');
+                if (directBox) directBox.style.display = 'none';
+            }
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('baytna_active_user');
+            showAuthToast('تم تسجيل الخروج بنجاح.');
+            checkCurrentUser();
+        }
+
+        // Order Quantity adjustments
+        function changeOrderQty(delta) {
+            currentQty = Math.max(1, currentQty + delta);
+            document.getElementById('orderQtyDisplay').textContent = currentQty;
+            updateOrderTotal();
+        }
+
+        function updateOrderTotal() {
+            const total = selectedPrice * currentQty;
+            const el = document.getElementById('orderTotalPriceText');
+            if (el) el.textContent = `${total} ₪`;
+        }
+
+        // Submit Direct Order
+        async function submitDirectOrder() {
+            const userStr = localStorage.getItem('baytna_active_user');
+            if (!userStr) {
+                showAuthToast('يرجى تسجيل الدخول أولاً لإرسال الطلب', true);
+                return;
+            }
+
+            const user = JSON.parse(userStr);
+            const address = document.getElementById('orderDeliveryAddress').value.trim() || user.address;
+            const notes = document.getElementById('orderKitchenNotes').value.trim();
+            const total = selectedPrice * currentQty;
+            const orderId = 'BAYT-' + Math.floor(1000 + Math.random() * 9000);
+
+            const order = {
+                id: orderId,
+                dish: selectedDish,
+                price: selectedPrice,
+                qty: currentQty,
+                total: total,
+                address: address,
+                notes: notes,
+                date: new Date().toLocaleDateString('ar-EG', { hour: '2-digit', minute: '2-digit' }),
+                status: 'قيد التحضير في المطبخ 🍲'
+            };
+
+            // Send to Supabase via proxy API
+            try {
+                await fetch('/api/orders', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        orderId: orderId,
+                        userId: user.id || null,
+                        customerName: user.name,
+                        phone: user.phone,
+                        address: address,
+                        dishName: selectedDish,
+                        quantity: currentQty,
+                        unitPrice: selectedPrice,
+                        totalPrice: total,
+                        notes: notes
+                    })
+                });
+            } catch (err) {
+                console.warn('Network error saving to Supabase proxy:', err);
+            }
+
+            // Save to orders history
+            let orders = JSON.parse(localStorage.getItem('baytna_orders') || '[]');
+            orders.unshift(order);
+            localStorage.setItem('baytna_orders', JSON.stringify(orders));
+
+            showAuthToast(`تهانينا! تم تأكيد طلبك #${orderId} وحفظه في Supabase بنجاح.`);
+
+            // Hide direct order box and refresh history
+            document.getElementById('directDishOrderBox').style.display = 'none';
+            document.getElementById('dishAlertBanner').style.display = 'none';
+            renderOrdersList();
+        }
+
+        async function renderOrdersList() {
+            const listContainer = document.getElementById('ordersListContainer');
+            if (!listContainer) return;
+
+            let orders = JSON.parse(localStorage.getItem('baytna_orders') || '[]');
+
+            // Try fetching from Supabase for current user
+            const userStr = localStorage.getItem('baytna_active_user');
+            if (userStr) {
+                try {
+                    const user = JSON.parse(userStr);
+                    const params = new URLSearchParams();
+                    if (user.id) params.append('userId', user.id);
+                    if (user.phone) params.append('phone', user.phone);
+
+                    const res = await fetch(`/api/orders?${params.toString()}`);
+                    const data = await res.json();
+                    if (res.ok && data.orders && data.orders.length > 0) {
+                        orders = data.orders.map(o => ({
+                            id: o.id,
+                            dish: o.dish_name,
+                            price: o.unit_price,
+                            qty: o.quantity,
+                            total: o.total_price,
+                            address: o.delivery_address,
+                            notes: o.kitchen_notes,
+                            date: new Date(o.created_at).toLocaleDateString('ar-EG', { hour: '2-digit', minute: '2-digit' }),
+                            status: o.status
+                        }));
+                        localStorage.setItem('baytna_orders', JSON.stringify(orders));
+                    }
+                } catch (e) {
+                    console.warn('Could not fetch Supabase orders, using local:', e);
+                }
+            }
+
+            if (orders.length === 0) {
+                listContainer.innerHTML = '<p style="font-size: 13px; color: #757575;">لا توجد طلبات سابقة حتى الآن.</p>';
+                return;
+            }
+
+            let html = '';
+            orders.slice(0, 5).forEach(order => {
+                html += `
+                    <div class="order-history-card">
+                        <div class="order-history-head">
+                            <span>طلب رقم #${order.id}</span>
+                            <span>${order.date}</span>
+                        </div>
+                        <div style="font-size: 14px; font-weight: 700; color: #1A1A1A; margin-bottom: 4px;">
+                            ${order.dish} × ${order.qty} (${order.total} ₪)
+                        </div>
+                        <div style="font-size: 12px; color: #556B2F; margin-bottom: 6px;">
+                            📍 التوصيل إلى: ${order.address}
+                        </div>
+                        <span class="order-status-badge status-preparing">${order.status}</span>
+                    </div>
+                `;
+            });
+            listContainer.innerHTML = html;
+        }
+    </script>
+</body>
+</html>
